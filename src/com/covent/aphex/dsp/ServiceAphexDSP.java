@@ -10,6 +10,9 @@ import android.os.IBinder;
 
 public class ServiceAphexDSP extends Service {
 	
+	//Needed for the start foreground, which makes the notification sticky in the foreground
+	private static final int SERVICE_ID = 0;
+
 	//The EQ
 	Equalizer mEqualizer;
 	
@@ -64,17 +67,17 @@ public class ServiceAphexDSP extends Service {
 	
 	public void setNotification(){
 		
-		Notification note=new Notification(R.drawable.ic_launcher_aphex, "Aphex DSP", System.currentTimeMillis());
-        Intent i=new Intent(this, ActivityAphexDSP.class);
+		Notification mNotification=new Notification(R.drawable.ic_launcher_aphex, "Aphex DSP", System.currentTimeMillis());
+        Intent mIntenti=new Intent(this, ActivityAphexDSP.class);
 
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        mIntenti.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pi=PendingIntent.getActivity(this, 0, i, 0);
+        PendingIntent pi=PendingIntent.getActivity(this, 0, mIntenti, 0);
 
-        note.setLatestEventInfo(this, "Aphex DSP","DSP Enabled: " + getEnabled(), pi);
-        note.flags|=Notification.FLAG_NO_CLEAR;
-
-        startForeground(1337, note);
+        mNotification.setLatestEventInfo(this, "Aphex DSP","DSP Enabled: " + getEnabled(), pi);
+        mNotification.flags|=Notification.FLAG_NO_CLEAR;
+ 
+        startForeground(SERVICE_ID, mNotification);
 	}
 	
 	
