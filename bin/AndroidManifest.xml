@@ -6,17 +6,25 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
-        android:debuggable="true"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_aphex"
+        android:installLocation="internalOnly"
         android:label="@string/app_name"
         android:persistent="true"
         android:theme="@style/AppTheme" >
-		<service android:name="com.covent.aphex.dsp.ServiceAphexDSP"/>
+        <service android:name="com.covent.aphex.dsp.ServiceAphexDSP" />
+
         <activity
             android:name="com.covent.aphex.dsp.ActivityAphexDSP"
             android:label="@string/app_name"
@@ -28,28 +36,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name="com.covent.aphex.dsp.BootCompleteReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$ToggleReceiver" >
+        </receiver>
+        <receiver android:name="com.covent.aphex.dsp.ActivityAphexDSP$ActivityToggleReceiver" >
+        </receiver>
+        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$PresetReceiver" >
+        </receiver>
+        <activity
+            android:name="com.covent.aphex.dsp.PresetActivity"
+            android:label="@string/title_activity_preset" >
+        </activity>
     </application>
-
-    <!-- WRITE_EXTERNAL_STORAGE is needed to write to SD Card -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- MODIFY_AUDIO_SETTINGS is needed to use audio effects such as environmental reverb -->
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
-    <!-- WAKE_LOCK is needed to prevent the system from putting device to sleep and interfering with your playback -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
-    <!-- use Google Play for license check -->
-    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-
-    <!-- use Google Play for in-app billing -->
-    <uses-permission android:name="com.android.vending.BILLING" />
 
 </manifest>
