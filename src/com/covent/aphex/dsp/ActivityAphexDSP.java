@@ -1,7 +1,5 @@
 package com.covent.aphex.dsp;
 
-import com.covent.aphex.dsp.ServiceAphexDSP.LocalBinder;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -14,22 +12,24 @@ import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
+import com.covent.aphex.dsp.ServiceAphexDSP.LocalBinder;
 
 public class ActivityAphexDSP extends Activity {
 	//Log tag to be passed into DEBUG_LOG
     private static final String LOG_TAG = "ActivityAphexDSP";
-
-    //Views
-    private TextView mStatusTextView;
     
     //Toggle button
-    private ToggleButton mToggleButton;
+    private Switch mToggleButton;
     
     //Nav button
-    private Button mButton;
+    private Button mSettingsNavButton;
     
 	//Service
 	ServiceAphexDSP mService;
@@ -38,6 +38,11 @@ public class ActivityAphexDSP extends Activity {
 
 	//Context
 	private Context mContext;
+	
+	private RadioGroup mRadioGroup;
+	
+	private TextView[] mTextViewArray = new TextView[6]; 
+	
 	
 	/***************************************************
 	 * Services
@@ -64,6 +69,26 @@ public class ActivityAphexDSP extends Activity {
 	};
 	
 	/**
+	 * BROADCAST RECEIVER
+	 * 
+	 * Receiver for when the preset is set in the Service.  It tells me to update the UI
+	 * I moved all my logic to the Service as it fixed the syncing issues
+	 * @author mStanford
+	 *
+	 */
+	public BroadcastReceiver SetPresetReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			CONSTANTS.DEBUG_LOG(LOG_TAG, "Preset has gone through, UI update");
+			if(CONSTANTS.DEBUG)
+				Toast.makeText(mContext, "Preset: " + mService.getPreset(), Toast.LENGTH_SHORT).show();
+			setRadioButtons();
+			setTextOutput();
+		}           
+	};
+	
+	/**
 	 * Broadcast receiver for toggle button
 	 * We are sending an intent for the toggle from the service
 	 * @author mStanford
@@ -79,15 +104,60 @@ public class ActivityAphexDSP extends Activity {
 		    if(CONSTANTS.ACTIVITY_TOGGLE_TRUE.equals(action)) {
 		    	//Toggle the DSP
 		    	mToggleButton.setChecked(true);
-		    	mStatusTextView.setText("Effect: " + mService.getEnabled());
+		    	setRadioButtons();
 		    } 
 		    if(CONSTANTS.ACTIVITY_TOGGLE_FALSE.equals(action)) {
 		    	//Toggle the DSP
 		    	mToggleButton.setChecked(false);
-		    	mStatusTextView.setText("Effect: " + mService.getEnabled());
+		    	setRadioButtons();
 		    } 
 		}           
 	};
+	
+	/**
+	 * The method called when user selects radio buttons
+	 * @param checkedId
+	 */
+	private void setRadioButtons(int checkedId){
+		int mIndex;
+		mIndex=mRadioGroup.indexOfChild(findViewById(checkedId));
+		//If custom then send preset -1
+		if(mIndex == 3){
+			mService.setPreset(-1);
+			return;
+		}
+		mService.setPreset(mIndex);
+	}
+	
+	/**
+	 * method called when updating radio buttons to reflect changes
+	 * @param checkedId
+	 */
+	private void setRadioButtons(){
+		switch (mService.getPreset()){
+			case -1:
+				mRadioGroup.check(R.id.preset_custom);
+				break;
+			case 0:
+				mRadioGroup.check(R.id.preset_low);
+				break;
+			case 1:
+				mRadioGroup.check(R.id.preset_medium);
+				break;
+			case 2:
+				mRadioGroup.check(R.id.preset_high);
+				break;
+			default:
+				mRadioGroup.check(R.id.preset_custom);
+				break;
+		}
+	}
+
+	private void setTextOutput(){
+		for(int i = 0; i < mService.getEQ().getNumberOfBands(); i++){
+			mTextViewArray[i].setText("" + mService.getBandLevel((short)i)/100);
+		}
+	}
 	
 	/**
 	 * On*** Classes
@@ -98,49 +168,53 @@ public class ActivityAphexDSP extends Activity {
         super.onCreate(bundle);
         setContentView(R.layout.main_activity);
         
-        //Need a context for something somewhere Im sure
+        //Need a context for something somewhere I'm sure
         mContext = this;
-
-        //Status view
-        mStatusTextView = (TextView)findViewById(R.id.tv_DSP_Status);
                 
+        mTextViewArray[0] = (TextView) findViewById(R.id.tv_ae_tune_out_main);
+        mTextViewArray[1] = (TextView) findViewById(R.id.tv_ae_harm_out_main);
+        mTextViewArray[2] = (TextView) findViewById(R.id.tv_ae_mix_out_main);
+        mTextViewArray[3] = (TextView) findViewById(R.id.tv_bb_tune_out_main);
+        mTextViewArray[4] = (TextView) findViewById(R.id.tv_bb_drive_out_main);
+        mTextViewArray[5] = (TextView) findViewById(R.id.tv_bb_mix_out_main);
+        
         //Toggle button
-        mToggleButton = (ToggleButton)(findViewById(R.id.tb_DSP_toggle_button));
+        mToggleButton = (Switch) findViewById(R.id.main_dsp_switch);
         
         //Nav Button
-        mButton = (Button) findViewById(R.id.btn_nav_settings);
+        mSettingsNavButton = (Button) findViewById(R.id.btn_nav_settings);
         
         //Toggle onClickListener
-        mToggleButton.setOnClickListener(new OnClickListener(){
+        mToggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+
 			@Override
-			public void onClick(View arg0) {
-				if(mService.getEnabled()){
-					mService.setEnabled(!mService.getEnabled());
-					Toast.makeText(getBaseContext(), "DSP OFF: " + mService.getEnabled(), Toast.LENGTH_SHORT).show();
-					mStatusTextView.setText("Effect: " + mService.getEnabled());
-					mToggleButton.setChecked(false);
-				}
-				else if(!mService.getEnabled()){
-					mService.setEnabled(!mService.getEnabled());
-					Toast.makeText(getBaseContext(), "DSP ON: " + mService.getEnabled(), Toast.LENGTH_SHORT).show();
-					mStatusTextView.setText("Effect: " + mService.getEnabled());
-					mToggleButton.setChecked(true);
-				}
-			}
-        	
+			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+					mService.setEnabled(isChecked);
+					mToggleButton.setChecked(isChecked);
+			} 	
         });
         
-        mButton.setOnClickListener(new OnClickListener(){
+        mSettingsNavButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {
 				Intent mIntent = new Intent(mContext,PresetActivity.class);
 				startActivity(mIntent);
 			}
         });
+        
+        mRadioGroup = (RadioGroup) findViewById(R.id.preset);
+        
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				setRadioButtons(checkedId);
+		        setTextOutput();
+			}
+		});
     }
-    
-	
-    @Override
+
+	@Override
 	protected void onResume() {
 		super.onResume();
         /**
@@ -151,10 +225,18 @@ public class ActivityAphexDSP extends Activity {
         mToggleIntent.addAction(CONSTANTS.ACTIVITY_TOGGLE_FALSE);
         registerReceiver(ActivityToggleReceiver, mToggleIntent); 
         
+		/**
+		 * Broadcast receiver for when it gets a preset
+		 */
+		IntentFilter mPresetIntent = new IntentFilter();
+		mPresetIntent.addAction(CONSTANTS.ACTION_PRESET_COMPLETED);
+        registerReceiver(SetPresetReceiver, mPresetIntent); 
+        
         //Make it tight looking for when it stops and starts again
         if(mService != null){
         	mToggleButton.setChecked(mService.getEnabled());
-        	mStatusTextView.setText("Effect: " + mService.getEnabled());
+        	setRadioButtons();
+            setTextOutput();
         }
 	}
 
@@ -181,6 +263,7 @@ public class ActivityAphexDSP extends Activity {
 		super.onStop();
 		//Unreg receiver
 		unregisterReceiver(ActivityToggleReceiver);
+		unregisterReceiver(SetPresetReceiver);
 	}
 	
 	

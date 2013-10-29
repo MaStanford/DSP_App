@@ -1,30 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
-    <TextView
-        android:id="@+id/tv_DSP_Status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    android:layout_height="match_parent" >
 
-    <ToggleButton
-        android:id="@+id/tb_DSP_toggle_button"
+    <LinearLayout
+        android:id="@+id/ll_vu_meter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_launcher_aphex"
-        android:checked="true"
-        android:disabledAlpha="5"
-        android:text="@string/toggle_button"
-        android:textOff="DSP OFF"
-        android:textOn="DSP ON" />
+        android:layout_marginTop="15dp" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="75dp"
+            android:maxWidth="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/vu_meter_on" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="15dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="150dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/vu_meter_on" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_nav_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_settings" />    
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:text="@string/button_settings" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_nav_settings"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/logo_x"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:maxHeight="200dp"
+            android:maxWidth="200dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/aphex_x_logo_2" />
+
+        <ImageView
+            android:id="@+id/logo_name"
+            android:layout_width="200dp"
+            android:layout_height="35dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/aphex_name_logo" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_main_preset_radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_main_dsp_values"
+        android:layout_marginTop="40dp" >
+
+        <RadioGroup
+            android:id="@+id/preset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/preset_low"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_low"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_medium"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_medium"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_high"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_high"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_custom"
+                style="@style/PresetButton"
+                android:text="@string/preset_custom"
+                android:textColor="@drawable/preset_colors" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_dsp_switch"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/tv_dsp_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_dsp_switch_off" />
+
+        <Switch
+            android:id="@+id/main_dsp_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:textOn=""
+            android:textOff=""
+            android:thumb="@drawable/dsp_switch"
+            android:track="@drawable/switch_track" />
+
+        <TextView
+            android:id="@+id/tv_dsp_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_dsp_switch_on" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_main_dsp_values"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_vu_meter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:id="@+id/ll_ae_tune_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_ae_tune_header"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AETune" />
+
+            <TextView
+                android:id="@+id/tv_ae_tune_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_harm_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_ae_harm_header_main"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AEHarm" />
+
+            <TextView
+                android:id="@+id/tv_ae_harm_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ae_mix_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_ae_mix_header_main"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AEMix" />
+
+            <TextView
+                android:id="@+id/tv_ae_mix_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_tune_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_bb_tune_header_main"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBTune" />
+
+            <TextView
+                android:id="@+id/tv_bb_tune_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_drive_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_bb_drive_header_main"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBDrive" />
+
+            <TextView
+                android:id="@+id/tv_bb_drive_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_mix_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_bb_mix_header_main"
+                style="@style/text_main_dsp_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBMix" />
+
+            <TextView
+                android:id="@+id/tv_bb_mix_out_main"
+                style="@style/text_main_dsp_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

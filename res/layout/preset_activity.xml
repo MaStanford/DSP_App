@@ -1,47 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tv_preset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/et_preset_num"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/btn_ok_preset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_ok_preset" />
-
-    <Button
-        android:id="@+id/btn_nav_toggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_nav_toggle" />
-
-    <TextView
-        android:id="@+id/tv_preset_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <LinearLayout
-        android:id="@+id/ll_preset_sliders"
+        android:id="@+id/ll_debug_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sliders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="0.25"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/ll_ae_tune"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" >
+
+            <TextView
+                android:id="@+id/tv_header_AETune"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AETune" />
+
+            <SeekBar
+                android:id="@+id/seekBar1"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_AETune"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_harmonics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" >
+
+            <TextView
+                android:id="@+id/tv_header_AEHarm"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AEHarm" />
+
+            <SeekBar
+                android:id="@+id/seekBar2"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_AEHarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ae_mix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" >
+
+            <TextView
+                android:id="@+id/tv_header_AEMix"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_AEMix" />
+
+            <SeekBar
+                android:id="@+id/seekBar3"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_AEMix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_tune"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" >
+
+            <TextView
+                android:id="@+id/tv_header_BBTune"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBTune" />
+
+            <SeekBar
+                android:id="@+id/seekBar4"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_BBTune"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_drive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp" >
+
+            <TextView
+                android:id="@+id/tv_header_BBDrive"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBDrive" />
+
+            <SeekBar
+                android:id="@+id/seekBar5"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_BBDrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_bb_mix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_header_BBMix"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="@string/header_BBMix" />
+
+            <SeekBar
+                android:id="@+id/seekBar6"
+                style="@style/SeekBar"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_BBMix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_dsp_switch"
+        android:layout_alignParentLeft="true"
+        android:layout_weight="0.50" >
+
+        <RadioGroup
+            android:id="@+id/preset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/preset_low"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_low"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_medium"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_medium"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_high"
+                style="@style/PresetButton"
+                android:drawableRight="@drawable/divider_vertical"
+                android:text="@string/preset_high"
+                android:textColor="@drawable/preset_colors" />
+
+            <RadioButton
+                android:id="@+id/preset_custom"
+                style="@style/PresetButton"
+                android:text="@string/preset_custom"
+                android:textColor="@drawable/preset_colors" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <!-- <Spinner -->
+    <!-- android:id="@+id/spinner_preset" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" /> -->
+
+    <ToggleButton
+        android:id="@+id/tb_DSP_toggle_button_settings"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="11dp"
+        android:background="@drawable/check"
+        android:checked="true" />
+
+    <LinearLayout
+        android:id="@+id/ll_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/logo_x"
+            android:layout_width="80dp"
+            android:layout_height="89dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/aphex_x_logo_2" />
+
+        <ImageView
+            android:id="@+id/logo_name"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/aphex_name_logo" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_preset_nav_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom" >
+
+        <Button
+            android:id="@+id/btn_nav_toggle"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/btn_nav_toggle" />
+
+        <Button
+            android:id="@+id/btn_credits"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/btn_credits" />
+    </RelativeLayout>
 
 </LinearLayout>

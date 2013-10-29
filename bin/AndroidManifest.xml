@@ -42,15 +42,19 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$ToggleReceiver" >
-        </receiver>
-        <receiver android:name="com.covent.aphex.dsp.ActivityAphexDSP$ActivityToggleReceiver" >
-        </receiver>
-        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$PresetReceiver" >
-        </receiver>
+        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$ToggleReceiver" />
+        <receiver android:name="com.covent.aphex.dsp.PresetActivity$SetPresetReceiver" />
+        <receiver android:name="com.covent.aphex.dsp.ActivityAphexDSP$SetPresetReceiver" />
+        <receiver android:name="com.covent.aphex.dsp.ActivityAphexDSP$ActivityToggleReceiver" />
+        <receiver android:name="com.covent.aphex.dsp.PresetActivity$ActivityToggleReceiver" />
+        <receiver android:name="com.covent.aphex.dsp.ServiceAphexDSP$PresetReceiver" />
         <activity
             android:name="com.covent.aphex.dsp.PresetActivity"
             android:label="@string/title_activity_preset" >
+        </activity>
+                <activity
+            android:name="com.covent.aphex.dsp.ActivityCredits"
+            android:label="@string/title_activity_credits" >
         </activity>
     </application>
 

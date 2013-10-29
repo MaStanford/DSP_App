@@ -1,20 +1,49 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.NoActionBar">
+
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="AppTheme" parent="@android:style/Theme.Holo.NoActionBar">
+        <item name="android:background">#000000</item>
+    </style>
+    
+        <!-- for the 4 preset buttons at the top of the audio settings page -->
+    <style name="PresetButton" parent="@android:style/TextAppearance.DeviceDefault.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:shadowColor">#7F000000</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
+    
+	<!--The style for the headers of the dsp settings in the main screen -->
+    <style name="text_main_dsp_header">
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    	<!--The style for the output of the dsp settings in the main screen -->
+    <style name="text_main_dsp_out">
+        <item name="android:textSize">32sp</item>
+    </style>
+    
+    <style name="SeekBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/slider_track_drawable</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_horizontal</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:thumb">@drawable/slider_thumb_on</item>
+        <item name="android:thumbOffset">16dip</item>
+        <item name="android:focusable">true</item>
     </style>
 
 </resources>
