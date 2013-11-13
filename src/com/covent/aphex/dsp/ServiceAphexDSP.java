@@ -24,9 +24,10 @@ public class ServiceAphexDSP extends Service {
 
 	// Binder given to clients
 	private final IBinder mBinder = new LocalBinder();
+	//private final ServiceBinder mBinder = new ServiceBinder();
 
 	//Custom preset
-	private short[] mCustomPreset = {0,0,0,0,0,0};
+	private short[] mCustomPreset = {50,50,50,50,50,50};
 	
 	//Preferences manager
 	private PreferencesManager mPreferenceManager;

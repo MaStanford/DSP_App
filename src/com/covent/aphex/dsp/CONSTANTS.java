@@ -14,7 +14,7 @@ public class CONSTANTS {
 	static final int REQUEST_CODE = 1;
 	
 	//EQ priority
-	static final int EQ_PRIORITY = 1000;
+	static final int EQ_PRIORITY = 100000000;
 	
 	//Keys for broadcast receivers.
 	static final String ACTION_TOGGLE = "covent.action.toggle";
